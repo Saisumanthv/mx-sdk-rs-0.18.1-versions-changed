@@ -1,0 +1,32 @@
+[package]
+name = "forwarder"
+version = "0.0.0"
+authors = ["Andrei Marinica <andrei.marinica@dharitri.com>"]
+edition = "2018"
+publish = false
+
+[lib]
+path = "src/forwarder_main.rs"
+
+[features]
+wasm-output-mode = [
+    "dharitri-wasm-node",
+]
+
+[dependencies.vault]
+path = "../vault"
+
+[dependencies.dharitri-wasm]
+version = "0.1.5"
+path = "../../../../dharitri-wasm"
+features = ["derive"]
+# features = ["legacy-nft-transfer"] # only use on Arwen v1.2.*
+
+[dependencies.dharitri-wasm-node]
+version = "0.1.5"
+path = "../../../../dharitri-wasm-node"
+optional = true
+
+[dev-dependencies.dharitri-wasm-debug]
+version = "0.1.5"
+path = "../../../../dharitri-wasm-debug"

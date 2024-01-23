@@ -1,0 +1,34 @@
+[package]
+name = "bonding-curve-contract"
+version = "0.0.0"
+authors = ["Alin Cruceat <alin.cruceat@dharitri.com>"]
+edition = "2018"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[features]
+wasm-output-mode = [
+    "dharitri-wasm-node",
+    "dharitri-wasm-module-bonding-curve/wasm-output-mode"
+]
+
+[dependencies.dharitri-wasm-module-bonding-curve]
+version = "0.1.5"
+path = "../../modules/dharitri-wasm-module-bonding-curve"
+
+[dependencies.dharitri-wasm]
+version = "0.1.5"
+path = "../../../dharitri-wasm"
+features = ["derive"]
+
+[dependencies.dharitri-wasm-node]
+version = "0.1.5"
+path = "../../../dharitri-wasm-node"
+optional = true
+
+[dev-dependencies.dharitri-wasm-debug]
+version = "0.1.5"
+path = "../../../dharitri-wasm-debug"
+

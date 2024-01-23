@@ -1,0 +1,31 @@
+[package]
+name = "dharitri-wasm-module-bonding-curve"
+version = "0.1.5"
+edition = "2018"
+
+authors = ["Alin Cruceat <alin.cruceat@dharitri.com>", "Dharitri Network <contact@dharitri.com>"]
+license = "GPL-3.0-only"
+readme = "README.md"
+repository = "https://github.com/Battula-anil-app-could/dx-sdk-rs-new"
+homepage = "https://dharitri.com/"
+documentation = "https://docs.dharitri.com/"
+description = "Dharitri Webassembly smart contract module that allows an address to sell tokens through a contract by defining a bonding curve that controls the evolution of the price"
+keywords = ["dharitri", "wasm", "bonding-curve", "blockchain", "contract"]
+categories = ["no-std", "wasm"]
+
+[features]
+wasm-output-mode = ["dharitri-wasm-node"]
+
+[dependencies.dharitri-wasm]
+version = "0.1.5"
+path = "../../../dharitri-wasm"
+features = ["derive"]
+
+[dependencies.dharitri-wasm-node]
+version = "0.1.5"
+path = "../../../dharitri-wasm-node"
+optional = true
+
+[dev-dependencies.dharitri-wasm-debug]
+version = "0.1.5"
+path = "../../../dharitri-wasm-debug"

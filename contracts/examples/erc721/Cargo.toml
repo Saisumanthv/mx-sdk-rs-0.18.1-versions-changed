@@ -1,0 +1,26 @@
+[package]
+name = "erc721"
+version = "0.0.0"
+authors = [ "Dorin Iancu <dorin.iancu@dharitri.com>",]
+edition = "2018"
+publish = false
+
+[lib]
+path = "src/erc721.rs"
+
+[features]
+wasm-output-mode = [ "dharitri-wasm-node",]
+
+[dependencies.dharitri-wasm]
+version = "0.1.5"
+path = "../../../dharitri-wasm"
+features = ["derive"]
+
+[dependencies.dharitri-wasm-node]
+version = "0.1.5"
+path = "../../../dharitri-wasm-node"
+optional = true
+
+[dev-dependencies.dharitri-wasm-debug]
+version = "0.1.5"
+path = "../../../dharitri-wasm-debug"

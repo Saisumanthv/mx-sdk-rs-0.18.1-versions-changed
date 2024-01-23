@@ -1,0 +1,26 @@
+#![no_std]
+
+dharitri_wasm::imports!();
+
+#[dharitri_wasm::contract]
+pub trait Factorial {
+    #[init]
+    fn init(&self) {}
+
+    #[endpoint]
+    fn factorial(&self, value: Self::BigUint) -> Self::BigUint {
+        if value == 0 {
+            return Self::BigUint::from(1u32);
+        }
+
+        let mut result = Self::BigUint::from(1u32);
+        let one = Self::BigUint::from(1u32);
+        let mut x = Self::BigUint::from(1u32);
+        while x <= value {
+            result *= &x;
+            x += &one;
+        }
+
+        result
+    }
+}

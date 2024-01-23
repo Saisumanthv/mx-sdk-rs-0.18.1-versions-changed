@@ -1,0 +1,517 @@
+{
+    "docs": [
+        "Contract that tests that using modules works correctly.",
+        "Also provides testing for the most common modules:",
+        "- DnsModule",
+        "- FeaturesModule",
+        "- DctModule",
+        "- GovernanceModule",
+        "- PauseModule"
+    ],
+    "name": "UseModule",
+    "constructor": {
+        "inputs": [],
+        "outputs": []
+    },
+    "endpoints": [
+        {
+            "docs": [
+                "Validates that the \"featureName\" feature is on.",
+                "Uses the `feature_guard!` macro."
+            ],
+            "name": "checkFeatureGuard",
+            "inputs": [],
+            "outputs": []
+        },
+        {
+            "name": "checkPause",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "call_mod_a",
+            "inputs": [],
+            "outputs": []
+        },
+        {
+            "name": "call_mod_b",
+            "inputs": [],
+            "outputs": []
+        },
+        {
+            "name": "call_mod_c",
+            "inputs": [],
+            "outputs": []
+        },
+        {
+            "name": "dnsRegister",
+            "payableInTokens": [
+                "MOAX"
+            ],
+            "inputs": [
+                {
+                    "name": "dns_address",
+                    "type": "Address"
+                },
+                {
+                    "name": "name",
+                    "type": "bytes"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "issueToken",
+            "payableInTokens": [
+                "MOAX"
+            ],
+            "inputs": [
+                {
+                    "name": "token_display_name",
+                    "type": "bytes"
+                },
+                {
+                    "name": "token_ticker",
+                    "type": "bytes"
+                },
+                {
+                    "name": "num_decimals",
+                    "type": "u32"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "docs": [
+                "optional address to set roles for. Defaults to SC's address."
+            ],
+            "name": "setLocalRoles",
+            "inputs": [
+                {
+                    "name": "opt_dest_address",
+                    "type": "optional<Address>",
+                    "multi_arg": true
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "setFeatureFlag",
+            "inputs": [
+                {
+                    "name": "feature_name",
+                    "type": "bytes"
+                },
+                {
+                    "name": "value",
+                    "type": "bool"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "depositTokensForAction",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [],
+            "outputs": []
+        },
+        {
+            "name": "withdrawGovernanceTokens",
+            "inputs": [
+                {
+                    "name": "proposal_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "propose",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "description",
+                    "type": "bytes"
+                },
+                {
+                    "name": "actions",
+                    "type": "variadic<multi<u64,Address,TokenIdentifier,u64,BigUint,bytes,List<bytes>>>",
+                    "multi_arg": true
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "u32"
+                }
+            ]
+        },
+        {
+            "name": "vote",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "proposal_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "downvote",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "proposal_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "queue",
+            "inputs": [
+                {
+                    "name": "proposal_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "execute",
+            "inputs": [
+                {
+                    "name": "proposal_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "cancel",
+            "inputs": [
+                {
+                    "name": "proposal_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "getProposalStatus",
+            "inputs": [
+                {
+                    "name": "proposal_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "GovernanceProposalStatus"
+                }
+            ]
+        },
+        {
+            "name": "getProposer",
+            "inputs": [
+                {
+                    "name": "proposal_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "optional<Address>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "getProposalDescription",
+            "inputs": [
+                {
+                    "name": "proposal_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "optional<bytes>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
+            "name": "getProposalActions",
+            "inputs": [
+                {
+                    "name": "proposal_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "variadic<multi<u64,Address,TokenIdentifier,u64,BigUint,bytes,List<bytes>>>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
+            "docs": [
+                "Could be calculated by iterating over the \"votes\" mapper, but that costs a lot of gas"
+            ],
+            "name": "getTotalVotes",
+            "inputs": [
+                {
+                    "name": "proposal_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "BigUint"
+                }
+            ]
+        },
+        {
+            "docs": [
+                "Could be calculated by iterating over the \"downvotes\" mapper, but that costs a lot of gas"
+            ],
+            "name": "getTotalDownvotes",
+            "inputs": [
+                {
+                    "name": "proposal_id",
+                    "type": "u32"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "BigUint"
+                }
+            ]
+        },
+        {
+            "docs": [
+                "The module can't protect its storage from the main SC, so it's the developers responsibility",
+                "to not modify parameters manually"
+            ],
+            "name": "initGovernanceModule",
+            "inputs": [
+                {
+                    "name": "governance_token_id",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "quorum",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "min_token_balance_for_proposal",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "max_actions_per_proposal",
+                    "type": "u32"
+                },
+                {
+                    "name": "voting_delay_in_blocks",
+                    "type": "u64"
+                },
+                {
+                    "name": "voting_period_in_blocks",
+                    "type": "u64"
+                },
+                {
+                    "name": "lock_time_after_voting_ends_in_blocks",
+                    "type": "u64"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "changeQuorum",
+            "inputs": [
+                {
+                    "name": "new_value",
+                    "type": "BigUint"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "changeMinTokenBalanceForProposing",
+            "inputs": [
+                {
+                    "name": "new_value",
+                    "type": "BigUint"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "changeMaxActionsPerProposal",
+            "inputs": [
+                {
+                    "name": "new_value",
+                    "type": "u32"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "changeVotingDelayInBlocks",
+            "inputs": [
+                {
+                    "name": "new_value",
+                    "type": "u64"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "changeVotingPeriodInBlocks",
+            "inputs": [
+                {
+                    "name": "new_value",
+                    "type": "u64"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "changeLockTimeAfterVotingEndsInBlocks",
+            "inputs": [
+                {
+                    "name": "new_value",
+                    "type": "u64"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "getGovernanceTokenId",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "TokenIdentifier"
+                }
+            ]
+        },
+        {
+            "name": "getQuorum",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "BigUint"
+                }
+            ]
+        },
+        {
+            "name": "getMinTokenBalanceForProposing",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "BigUint"
+                }
+            ]
+        },
+        {
+            "name": "getMaxActionsPerProposal",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "u32"
+                }
+            ]
+        },
+        {
+            "name": "getVotingDelayInBlocks",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "getVotingPeriodInBlocks",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "getLockTimeAfterVotingEndsInBlocks",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "isPaused",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "pause",
+            "inputs": [],
+            "outputs": []
+        },
+        {
+            "name": "unpause",
+            "inputs": [],
+            "outputs": []
+        }
+    ],
+    "types": {
+        "GovernanceProposalStatus": {
+            "type": "enum",
+            "variants": [
+                {
+                    "name": "None",
+                    "discriminant": 0
+                },
+                {
+                    "name": "Pending",
+                    "discriminant": 1
+                },
+                {
+                    "name": "Active",
+                    "discriminant": 2
+                },
+                {
+                    "name": "Defeated",
+                    "discriminant": 3
+                },
+                {
+                    "name": "Succeeded",
+                    "discriminant": 4
+                },
+                {
+                    "name": "Queued",
+                    "discriminant": 5
+                }
+            ]
+        }
+    }
+}

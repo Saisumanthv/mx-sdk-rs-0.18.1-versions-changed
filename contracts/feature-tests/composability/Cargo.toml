@@ -1,0 +1,35 @@
+[package]
+name = "async"
+version = "0.0.0"
+authors = ["Andrei Marinica <andrei.marinica@dharitri.com>"]
+edition = "2018"
+publish = false
+
+[dependencies.forwarder]
+path = "forwarder"
+
+[dependencies.forwarder-raw]
+path = "forwarder-raw"
+
+[dependencies.proxy-test-first]
+path = "proxy-test-first"
+
+[dependencies.proxy-test-second]
+path = "proxy-test-second"
+
+[dependencies.vault]
+path = "vault"
+
+[dependencies.dharitri-wasm]
+version = "0.1.5"
+path = "../../../dharitri-wasm"
+features = ["derive"]
+
+[dependencies.dharitri-wasm-node]
+version = "0.1.5"
+path = "../../../dharitri-wasm-node"
+optional = true
+
+[dev-dependencies.dharitri-wasm-debug]
+version = "0.1.5"
+path = "../../../dharitri-wasm-debug"
